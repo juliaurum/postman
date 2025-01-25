@@ -1,0 +1,29 @@
+##Проверить, что статус ответа равен 200
+pm.test("Статус ответа 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Структура ответа корректна", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData).to.have.all.keys('id', 'name', 'email', 'status');
+});
+
+##Проверить, что статус ответа 201 Created
+pm.test("Статус ответа 201", function () {
+    pm.response.to.have.status(201);
+});
+
+pm.test("В ответе есть ID клиента", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData).to.have.property('id');
+});
+
+##Проверить, что время ответа не превышает 500 мс
+pm.test("Время ответа менее 500 мс", function () {
+    pm.expect(pm.response.responseTime).to.be.below(500);
+});
+
+##Проверить, что статус ответа 401 Unauthorized
+pm.test("Отказано в доступе без авторизации", function () {
+    pm.response.to.have.status(401);
+});
